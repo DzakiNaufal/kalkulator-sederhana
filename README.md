@@ -25,17 +25,18 @@ Didesain dengan tampilan minimalis dan responsif, kalkulator ini dapat melakukan
 
 ## 🚀 Cara Menjalankan
 
-```bash
+
 # Clone repositori ini
-git clone https://github.com/username/nama-repo.git
-
+```bash
+git clone https://github.com/DzakiNaufal/kalkulator-sederhana.git
+```
 # Masuk ke folder proyek
-cd nama-repo
-
-# Buka file di browser
-start index.html   # Windows
-# atau
-open index.html    # macOS/Linux
+```bash
+cd kalkulator-sederhana
+```
+# Jalankan
+```bash
+start kalkulator.html
 ```
 
 ---
