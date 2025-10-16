@@ -1,6 +1,6 @@
 # 🧮 Kalkulator Sederhana
 
-Proyek ini adalah **kalkulator berbasis web** yang dibuat menggunakan **HTML, CSS, dan JavaScript murni**.
+Proyek ini adalah **kalkulator berbasis web** yang dibuat menggunakan **HTML, CSS, dan JavaScript**.
 Didesain dengan tampilan minimalis dan responsif, kalkulator ini dapat melakukan operasi dasar seperti penjumlahan, pengurangan, perkalian, pembagian, dan persen (%).
 
 ---
