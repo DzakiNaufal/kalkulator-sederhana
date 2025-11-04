@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator Sederhana</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #f3f4f6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .kalkulator {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+      }
+
+      .layar {
+        width: 100%;
+        height: 50px;
+        font-size: 1.5em;
+        text-align: right;
+        margin-bottom: 10px;
+        padding-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      }
+
+      .tombol {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+
+      button {
+        height: 50px;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 8px;
+        background: #e5e7eb;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      button:hover {
+        background: #d1d5db;
+      }
+
+      .operator {
+        background: #60a5fa;
+        color: white;
+      }
+
+      .operator:hover {
+        background: #3b82f6;
+      }
+
+      .clear {
+        background: #f87171;
+        color: white;
+      }
+
+      .clear:hover {
+        background: #ef4444;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="kalkulator">
+      <input type="text" id="layar" class="layar" readonly />
+
+      <div class="tombol">
+        <button class="clear" onclick="hapus()">AC</button>
+        <button class="operator" onclick="hapusSatu()">&larr;</button>
+        <button class="operator" onclick="ubahTanda('')">±</button>
+        <button class="operator" onclick="tambahInput('/')">÷</button>
+
+        <button onclick="tambahInput('7')">7</button>
+        <button onclick="tambahInput('8')">8</button>
+        <button onclick="tambahInput('9')">9</button>
+        <button class="operator" onclick="tambahInput('*')">×</button>
+
+        <button onclick="tambahInput('4')">4</button>
+        <button onclick="tambahInput('5')">5</button>
+        <button onclick="tambahInput('6')">6</button>
+        <button class="operator" onclick="tambahInput('-')">−</button>
+
+        <button onclick="tambahInput('1')">1</button>
+        <button onclick="tambahInput('2')">2</button>
+        <button onclick="tambahInput('3')">3</button>
+        <button class="operator" onclick="tambahInput('+')">+</button>
+
+        <button onclick="tambahInput('%')">%</button>
+        <button onclick="tambahInput('0')">0</button>
+        <button onclick="tambahInput('.')">.</button>
+        <button class="operator" onclick="hitung()">=</button>
+      </div>
+    </div>
+
+    <script>
+      const layar = document.getElementById("layar");
+
+      function tambahInput(value) {
+        layar.value += value;
+      }
+
+      function hapus() {
+        layar.value = "";
+      }
+
+      function hapusSatu() {
+        layar.value = layar.value.slice(0, -1);
+      }
+
+      function ubahTanda() {
+        if (layar.value) {
+          if (layar.value.startsWith("-")) {
+            layar.value = layar.value.slice(1);
+          } else {
+            layar.value = "-" + layar.value;
+          }
+        }
+      }
+
+      function hitung() {
+        try {
+          let ekspresi = layar.value;
+
+          // Tangani tanda persen menjadi /100 sementara
+          ekspresi = ekspresi.replace(/(\d+(\.\d+)?)%/g, "($1/100)");
+
+          // Deteksi pola seperti "angka operator angka%"
+          const pola = /(\d+(\.\d+)?)([+\-*/])\((\d+(\.\d+)?\/100)\)/;
+          const match = ekspresi.match(pola);
+
+          if (match) {
+            const angka1 = parseFloat(match[1]);
+            const operator = match[3];
+            const persen = parseFloat(match[4].split("/")[0]); // ambil angka sebelum /100
+            let hasil;
+
+            switch (operator) {
+              case "+":
+                hasil = angka1 + (angka1 * persen / 100);
+                break;
+              case "-":
+                hasil = angka1 - (angka1 * persen / 100);
+                break;
+              case "*":
+                hasil = angka1 * (persen / 100);
+                break;
+              case "/":
+                hasil = angka1 / (persen / 100);
+                break;
+            }
+            layar.value = hasil;
+            return;
+          }
+
+          // Jika tidak ada persen, jalankan evaluasi normal
+          layar.value = eval(ekspresi);
+        } catch {
+          layar.value = "Error";
+        }
+      }
+    </script>
+  </body>
+</html>
