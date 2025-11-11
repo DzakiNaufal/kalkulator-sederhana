@@ -36,7 +36,7 @@ cd kalkulator-sederhana
 ```
 # Jalankan
 ```bash
-start kalkulator.html
+start index.html
 ```
 
 ---
